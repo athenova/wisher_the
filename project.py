@@ -24,7 +24,8 @@ class Project(SimplestBlogger):
             'illustrator_the': 'Иллюстрции к книгам',
             'ai_tarot': 'Гороскопы таро',
             'horo_ai': 'Гороскопы',
-            'aries_the': 'Гороскопы Рыб',
+            'aries_the': 'Гороскопы Овнов',
+            'pisces_the': 'Гороскопы Рыб',
             'gemini_the': 'Горосокопы Близнецов',
             'capricorn_the': 'Гороскопы Козерогов',
             'aquarius_the': 'Гороскопы Водолеев',
@@ -62,7 +63,7 @@ class Project(SimplestBlogger):
             if not check_attr in name: attr_to_del.append(name)
         for attr in attr_to_del:
             del task[attr]
-        return task
+        return task if len(task) > 0 else None
     
     def revert(self):
         self.init_project()
@@ -82,7 +83,7 @@ class Project(SimplestBlogger):
     def send(self, type=None, image_gen=True, text_gen=True, chat_id=None, days_offset=None, force_text_regen=True, force_image_regen=True):
         if type is None:
             for channel in self.channel_desc:
-                super().send(f"{channel}_08_03", image_gen, text_gen, f"@{channel}", days_offset, force_text_regen, force_image_regen)
+                super().send(f"{channel}_08_03", image_gen, text_gen, f"@{channel}", days_offset, False, False)
                 time.sleep(5)
         else:
             super().send(type, image_gen, text_gen, chat_id, days_offset, force_text_regen, force_image_regen)
